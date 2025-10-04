@@ -1,24 +1,30 @@
 from pydantic_settings import BaseSettings
-from typing import Optional
+from typing import List
 
 
 class Settings(BaseSettings):
-    # App settings
-    app_name: str = "DKMC Backend"
-    debug: bool = False
-    
-    # Database settings
-    database_url: str = "sqlite+aiosqlite:///./dkmc.db"
-    
-    # API settings
-    api_v1_prefix: str = "/api/v1"
-    
-    # Security settings
-    secret_key: str = "your-secret-key-here"
-    access_token_expire_minutes: int = 30
-    
+    PROJECT_NAME: str = "Maintainer's Dashboard API"
+    VERSION: str = "1.0.0"
+    API_V1_STR: str = "/api/v1"
+
+    # CORS
+    ALLOWED_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:8000",
+    ]
+
+    # Database
+    DATABASE_URL: str = "sqlite:///./maintainers_dashboard.db"
+
+    # GitHub API (for future integration)
+    GITHUB_TOKEN: str = ""
+
+    # Redis (for caching, if needed)
+    REDIS_URL: str = "redis://localhost:6379"
+
     class Config:
         env_file = ".env"
+        case_sensitive = True
 
 
 settings = Settings()
